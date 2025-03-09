@@ -1,6 +1,6 @@
 {
   "name": "meu-app-electron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Uma aplicação Electron simples",
   "main": "main.js",
   "scripts": {
@@ -18,7 +18,7 @@
       "provider": "github",
       "owner": "GeraldoAlvesJr",
       "repo": "meu-app-electron",
-      "releaseType": "draft"
+      "releaseType": "release"
     },
     "win": {
       "target": "nsis"
