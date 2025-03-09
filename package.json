@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "electron-builder --publish always"
   },
   "devDependencies": {
     "electron": "^X.X.X",
@@ -16,8 +16,9 @@
     "productName": "MeuApp",
     "publish": {
       "provider": "github",
-      "owner": "SEU_USUARIO",
-      "repo": "meu-app-electron"
+      "owner": "GeraldoAlvesJr",
+      "repo": "meu-app-electron",
+      "releaseType": "draft"
     },
     "win": {
       "target": "nsis"
