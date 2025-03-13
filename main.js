@@ -1,8 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
-
-// Configuração do autoUpdater
-const updateURL = 'https://github.com/GeraldoAlvesJr/meu-app-electron/releases/latest/download/latest.yml'; // A URL do arquivo de atualizações
 
 autoUpdater.autoDownload = false;
 
@@ -20,8 +17,7 @@ function createWindow() {
 }
 
 function checkForUpdates() {
-    autoUpdater.setFeedURL(updateURL); // Define a URL do feed de atualizações
-    autoUpdater.checkForUpdatesAndNotify(); // Verifica se há atualizações e notifica
+    autoUpdater.checkForUpdates(); // Verifica se há atualizações e notifica
 }
 
 autoUpdater.on('update-available', (info) => {
