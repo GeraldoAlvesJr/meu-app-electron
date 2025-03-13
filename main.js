@@ -4,6 +4,8 @@ const { autoUpdater } = require('electron-updater');
 // Configuração do autoUpdater
 const updateURL = 'https://github.com/GeraldoAlvesJr/meu-app-electron/releases/latest/download/latest.yml'; // A URL do arquivo de atualizações
 
+autoUpdater.autoDownload = false;
+
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
@@ -22,35 +24,31 @@ function checkForUpdates() {
     autoUpdater.checkForUpdatesAndNotify(); // Verifica se há atualizações e notifica
 }
 
-// Eventos do autoUpdater para depuração
-autoUpdater.on('checking-for-update', () => {
-    console.log('Verificando se há atualizações...');
-});
-
-autoUpdater.on('update-available', () => {
-    console.log('Nova atualização disponível!');
-});
-
-autoUpdater.on('update-not-available', () => {
-    console.log('Nenhuma atualização disponível.');
-});
-
-autoUpdater.on('error', (err) => {
-    console.error('Erro ao verificar atualizações:', err);
+autoUpdater.on('update-available', (info) => {
+    dialog.showMessageBox({
+        type: 'info',
+        title: 'Atualização Disponível',
+        message: 'Uma nova versão está disponível. Deseja baixar agora?',
+        buttons: ['Sim', 'Mais tarde']
+    }).then(result => {
+        if (result.response === 0) {
+            autoUpdater.downloadUpdate();
+        }
+    });
 });
 
 autoUpdater.on('update-downloaded', () => {
-    console.log('Atualização baixada! Instalação em andamento...');
-    autoUpdater.quitAndInstall(); // Instala a atualização e fecha o app
+    dialog.showMessageBox({
+        type: 'info',
+        title: 'Atualização Pronta',
+        message: 'A atualização foi baixada. O aplicativo será reiniciado para aplicar as mudanças.',
+        buttons: ['Reiniciar Agora']
+    }).then(() => {
+        autoUpdater.quitAndInstall();
+    });
 });
 
-app.whenReady().then(() => {
+app.on('ready', () => {
     createWindow();
-    checkForUpdates(); // Verifica atualizações na inicialização
-});
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+    checkForUpdates();
 });

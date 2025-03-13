@@ -1,11 +1,11 @@
 {
   "name": "meu-app-electron",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Uma aplicação Electron simples",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --publish always"
+    "dist": "git tag v$(node -p \"require('./package.json').version\") && git push origin v$(node -p \"require('./package.json').version\") && electron-builder --publish always"
   },
   "devDependencies": {
     "electron": "^X.X.X",
