@@ -14,7 +14,7 @@ function createWindow() {
     });
 
     // Carrega a URL ou arquivo HTML
-    win.loadURL('index.html');
+    win.loadFile('index.html');
     
     // Abre o Developer Tools para debugar
     win.webContents.openDevTools();
